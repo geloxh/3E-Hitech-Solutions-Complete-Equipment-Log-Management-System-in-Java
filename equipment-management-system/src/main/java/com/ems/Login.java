@@ -13,7 +13,7 @@ public class Login extends javax.swing.JFrame {
     ResultSet resultSet;
     PreparedStatement preparedStatement;
     /**
-     * Creates new form Login
+     * Creates new form for Login
      */
     public Login() {
         initComponents();
