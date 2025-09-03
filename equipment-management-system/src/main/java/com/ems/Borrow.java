@@ -24,6 +24,7 @@ public class Borrow extends javax.swing.JFrame {
     Connection connection = null;
     ResultSet resultSet;
     PreparedStatement preparedStatement;
+    
     /**
      * Creates new form for Borrow
      */
