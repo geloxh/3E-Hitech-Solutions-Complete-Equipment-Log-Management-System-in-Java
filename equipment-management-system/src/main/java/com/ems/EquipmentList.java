@@ -1,12 +1,11 @@
 package com.ems;
 
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import net.proteanit.sql.DbUtils;
+import java.util.List;
 
 /**
  * 
@@ -14,36 +13,53 @@ import net.proteanit.sql.DbUtils;
  * 
  */
 
-public class EquipmentList extends javax.swing.JFrame {
-    Connection connection = null; // Object connection
-    ResultSet resultSet; // Create an object that act as a data storage taken from database 
-    PreparedStatement preparedStatement; // Create an object that stores queries of database
+public class EquipmentList extends JFrame {
+    private JTable equipmentTable;
+    private JButton backButton;
 
-    /**
-     * 
-     * Creates new form EquipmentList
-     * Constructor of JFrame
-     * 
-     */
+    public EquipmentList() {
+        setTitle("Equipment List");
+        setSize(800, 400);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-     public EquipmentList() {
-        super("Equipment List");
-        initComponents();
+        equipmentTable = new JTable();
+        JScrollPane scrollPane = new JScrollPane(equipmentTable);
 
-        // Connect to Database
-        connection = JavaConnectionDataBase.connectToDataBase();
-        String sqlEquipmentList = "SELECT EquipmentName AS 'Equipment Name',"
-                + "EquipmentCode AS 'Equipment Code', Quantity, Supplier AS 'From Company', Office FROM Equipment";
+        backButton =  new JButton("Back");
+        backButton.addActionListener (e -> {
+            this.dispose();
+            new DashBoard().setVisible(true);
+        });
 
-        try { // Proceed with connection, put in try because there might be a connection error
-           preparedStatement = connection.preparedStatement(sqlEquipmentList); // This creates a query from connection
-           resultSet = preparedStatement.executeQuery();
-           // Execute queries above, the result of the executionis stored in resultSet
-           EquipmentListTable.setModel(DbUtils.resultSetToTableModel(resultSet));
-           // Assign and convert resultSet to Table Model
-        } catch (SQLException ex) {
-            // If there is an error in connection then the error will be caught and displayed
-            Logger.getLogger(EquipmentList.class.getName()).log(Level.SEVERE, null, ex);
+        JPanel panel = new JPanel(new BorderLayot());
+        panel.add(scrollPane, BorderLayout.CENTER);
+        panel.add(backButton, BorderLayout.SOUTH);
+
+        add(panel);
+
+        loadEquipmentData(); 
+    }
+
+    private void loadEquipmentData() {
+        try (Connection connection = DatabaseConnectionManager.getConnection()) {
+            EquipmentDAO dao = new EquipmentDAO(connection);
+            List<Equipment> equipmentList = dao.getAllEquipment();
+
+            String[] columnNames = {"ID", "Name", "Code", "Quantity", "Supplier", "Office"};
+            DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+            
+            for (Equipment eq : equipmentList) {
+                Object[] row = {
+                    eq.getEquipmentID(),
+                    eq.getEquipmentName(),
+                    eq.getEquipmentCode(),
+                    eq.getQuantity(),
+                    eq.getSupplier(),
+                    eq.getOffice()
+                };
+                model.addRow(row);
+            }
         }
     }
 
