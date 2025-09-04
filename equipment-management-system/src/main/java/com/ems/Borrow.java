@@ -242,7 +242,7 @@ public class Borrow extends javax.swing.JFrame {
         BorrowDateLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         BorrowDateLabel.setText("Borrow Date: ");
 
-        BorrowButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/borrow-button-icon.png"))); // NOI18N
+        BorrowButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/borrow-button-icon.png"))); // NOI18N
         BorrowButton.setText("Borrow");
         BorrowButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -250,7 +250,7 @@ public class Borrow extends javax.swing.JFrame {
             }
         });
 
-        BackButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/back.png"))); // NOI18N
+        BackButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/back.png"))); // NOI18N
         BackButton.setText("Back");
         BackButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -335,7 +335,7 @@ public class Borrow extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
         
-    private void BorrowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BorrowButtonActionPerformed
+    private void BorrowButtonActionPerformed(java.awt.event.ActionEvent evt) { // GEN-FIRST:event_BorrowButtonActionPerformed
     String emailValidate = 
     "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
     + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
@@ -356,32 +356,32 @@ public class Borrow extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }   
-    }//GEN-LAST:event_BorrowButtonActionPerformed
+    } // GEN-LAST:event_BorrowButtonActionPerformed
         else {
-            JOptionPane.showMessageDialog(null, "Please enter a proper email");
+            JOptionPane.showMessageDialog(null, "Please enter a correct email");
         }
             }
 
         
-    private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
-        setVisible(false); //close the screen
+    private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) { // GEN-FIRST:event_BackButtonActionPerformed
+        setVisible(false); // CLOSE THE CURRENT SCREEN
         DashBoard dashBoard = new DashBoard();
-        dashBoard.setVisible(true); //open the dashboard screen
+        dashBoard.setVisible(true); // OPEN THE DASHBOARD SCREEN
         if (BackButton.isEnabled());
-        Properties prop = System.getProperties(); //setup email properties when back button is clicked
+        Properties prop = System.getProperties(); // SETUP EMAIL PROPERTIES WHEN BACK BUTTON IS CLICKED
         prop.put("mail.smtp.host", "smtp.gmail.com");
         prop.put("mail.smtp.port", "465");
         prop.put("mail.smtp.auth", "true");
         prop.put("mail.smtp.socketFactory.port", "465");
         prop.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-            final String GmailAccountEmail = "baosonprogramtest@gmail.com";
-            final String GmailPassword = "programtest123";
+            final String GmailAccountEmail = "patrick.santos@gmail.com"; // SETUP GMAIL ACCOUNT
+            final String GmailPassword = "programtest123"; // SETUP GMAIL PASSWORD
 
 
         Session session = null;
         session = Session.getInstance(prop, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(GmailAccountEmail, GmailPassword); //process of validating email account
+                return new PasswordAuthentication(GmailAccountEmail, GmailPassword); // PROCESS OF VALIDATING EMAIL ACCOUNT
             }
             });
     try{
@@ -393,17 +393,19 @@ public class Borrow extends javax.swing.JFrame {
      message.addRecipient(Message.RecipientType.TO,
                               new InternetAddress(EmailTextField.getText()));
                               
-     message.setSubject("You Have Borrowed An Item From The Art Department"); //set title of the email
+     message.setSubject("3E Hitech Solutions"); // SET TITLE OF THE EMAIL
+
+     message.setSubject("Return of Company Property")
       
-     message.setText("Dear Student \n The item you have borrowed is expected by Ms. Goppert to be return on the proposed day! Please return it on time");
+     message.setText("Dear Employee, \nPer company policy, employees must return all property issued to you on time.\nThis includes but is not limited to:\n-Laptop\n-Laptop Bag\n-FlashDrive\n-Computer Mouse\n-ID badge/keys\n-[Other Items]\nIf you need help arranging the return, kindly contact IT or HR at [email/phone].\nThank you for cooperation. \n Best Regards,\n[Your Name]\n[Your Position]\n[Company Name]");
 
      Transport.send(message);
-     System.out.println("Email Sent");
+     System.out.println("Email Sent Successfully!");
     }catch (MessagingException mex) {
      mex.printStackTrace();
     }
 
-    }//GEN-LAST:event_BackButtonActionPerformed
+    } // GEN-LAST:event_BackButtonActionPerformed
 
     private void SearchEquipmentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchEquipmentButtonActionPerformed
        String sqlSearchEquipment = "SELECT * FROM Equipment WHERE EquipmentCode=?";
@@ -432,19 +434,20 @@ public class Borrow extends javax.swing.JFrame {
             } catch (Exception e) {
             }
         }
-    }//GEN-LAST:event_SearchEquipmentButtonActionPerformed
+    } // GEN-LAST:event_SearchEquipmentButtonActionPerformed
 
     private void EmailTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmailTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_EmailTextFieldActionPerformed
+    } // GEN-LAST:event_EmailTextFieldActionPerformed
 
     private void TimeReturnedComboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TimeReturnedComboboxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TimeReturnedComboboxActionPerformed
+    } // GEN-LAST:event_TimeReturnedComboboxActionPerformed
 
     /**
-     * @param args the command line arguments
+     * @param args THE COMMAND LINE ARGUMENTS
      */
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -467,9 +470,10 @@ public class Borrow extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Borrow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
+        // </editor-fold>
 
-        /* Create and display the form */
+        /* CREATE AND DISPLAY THE FORM */
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Borrow().setVisible(true);
@@ -478,6 +482,7 @@ public class Borrow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+
     private javax.swing.JButton BackButton;
     private javax.swing.JButton BorrowButton;
     private datechooser.beans.DateChooserCombo BorrowDateCombobox;
@@ -507,5 +512,6 @@ public class Borrow extends javax.swing.JFrame {
     private javax.swing.JTextField SupplierTextField;
     private javax.swing.JComboBox TimeReturnedCombobox;
     private javax.swing.JLabel TimeReturnedLabel;
+
     // End of variables declaration//GEN-END:variables
 }
