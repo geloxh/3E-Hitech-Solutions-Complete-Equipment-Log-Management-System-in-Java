@@ -43,15 +43,3 @@ FROM borrow_records b
 JOIN equipment e ON b.equipment_id = e.id
 JOIN users u ON b.user_id = user.id
 WHERE b.status = 'active';
-
-/**
- * SAMPLE DATA
- */
-
--- SAMPLE EQUIPMENT
-INSERT INTO equipment (code, name, description, office)
-VALUES ('E01', 'Laptop', 'Acer I5', "3E-Hitech");
-
--- SAMPLE USER
-INSERT INTO users (full_name, email, class, role)
-VALUES ('Patrick Santos', 'patrick.santos@3ehitech.com', '3E-Hitech', 'Sales Manager');
