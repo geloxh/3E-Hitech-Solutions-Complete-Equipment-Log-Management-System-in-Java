@@ -13,7 +13,7 @@ public class Login extends javax.swing.JFrame {
     ResultSet resultSet;
     PreparedStatement preparedStatement;
     /**
-     * Creates new form for Login
+     * CREATES NEW FORM FOR LOGIN
      */
     public Login() {
         initComponents();
@@ -209,32 +209,36 @@ public class Login extends javax.swing.JFrame {
 
         pack();
         setLocationRelativeTo(null);
-    }// </editor-fold>//GEN-END:initComponents
+    } // </editor-fold>//GEN-END:initComponents
 
-    private void UserNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserNameTextFieldActionPerformed
+    private void UserNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) { // GEN-FIRST:event_UserNameTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_UserNameTextFieldActionPerformed
+    } // GEN-LAST:event_UserNameTextFieldActionPerformed
 
-    private void SignupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignupButtonActionPerformed
+    private void SignupButtonActionPerformed(java.awt.event.ActionEvent evt) { // GEN-FIRST:event_SignupButtonActionPerformed
         setVisible(false);
         Signup signup = new Signup();
         signup.setVisible(true);// TODO add your handling code here:
-    }//GEN-LAST:event_SignupButtonActionPerformed
+    } // GEN-LAST:event_SignupButtonActionPerformed
 
-    private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
-        String sql = "SELECT * FROM Account Where UserName=? And Password=?";
+    private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) { // GEN-FIRST:event_LoginButtonActionPerformed
+        String sql = "SELECT * FROM users Where email=?";
         try {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, UserNameTextField.getText());
-            preparedStatement.setString(2, PasswordField.getText());
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                resultSet.close();
-                preparedStatement.close();
-                setVisible(false);
-                DashBoard dashBoard = new DashBoard();
-                dashBoard.setVisible(true);
-                
+                String hashedPassword = resultSet.getString("password");
+                String plainPassword = new String(PasswordField.getPassword());
+                if (PasswordUtils.checkPassword(plainPassword, hashedPassword)) {
+                    resultSet.close();
+                    preparedStatement.close();
+                    setVisible(false);
+                    DashBoard dashBoard = new DashBoard();
+                    dashBoard.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Incorrect Username or Password");
+                }
             }
             else {
                 JOptionPane.showMessageDialog(null, "Incorrect Username or Password");
@@ -250,10 +254,10 @@ public class Login extends javax.swing.JFrame {
             catch (Exception e) {
             }
         } 
-    }//GEN-LAST:event_LoginButtonActionPerformed
+    } // GEN-LAST:event_LoginButtonActionPerformed
 
     /**
-     * @param args the command line arguments
+     * @param args THE COMMAND LINE ARGUMENTS
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

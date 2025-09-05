@@ -15,7 +15,7 @@ public class Signup extends javax.swing.JFrame {
     ResultSet resultSet;
     PreparedStatement preparedStatement;
     /**
-     * Creates new form for Signup
+     * CREATES NEW FORM FOR SIGNUP
      */
     public Signup() {
         super("Login");
@@ -174,12 +174,12 @@ public class Signup extends javax.swing.JFrame {
              }
         else if (EmailTextField.getText().matches(emailValidate)) {
             try {
-            String sqlInsert = "INSERT INTO Account(UserName, FullName, Password, Email)\nVALUES (?,?,?,?)";
+            String sqlInsert = "INSERT INTO users (full_name, email, password)\nVALUES (?,?,?)";
             preparedStatement = connection.prepareStatement(sqlInsert);
-            preparedStatement.setString(1, UserNameTextField.getText());
-            preparedStatement.setString(2, FullNameTextField.getText());
-            preparedStatement.setString(3, PasswordTextField.getText());
-            preparedStatement.setString(4, EmailTextField.getText());
+            preparedStatement.setString(1, FullNameTextField.getText());
+            preparedStatement.setString(2, EmailTextField.getText());
+            String hashedPassword = PasswordUtils.hashPassword(new String(PasswordTextField.getPassword()));
+            preparedStatement.setString(3, hashedPassword);
             preparedStatement.execute();
             JOptionPane.showMessageDialog(null, "New Account Created Successfully");
             
@@ -187,19 +187,19 @@ public class Signup extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Failed to create new user.");    } 
          
         
-    }//GEN-LAST:event_SignupButtonActionPerformed
+    } // GEN-LAST:event_SignupButtonActionPerformed
         else{ 
             JOptionPane.showMessageDialog(null, "Failed to create new user.");      
     } }
     
-    private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
+    private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) { // GEN-FIRST:event_BackButtonActionPerformed
         setVisible(false);
         Login login = new Login();
         login.setVisible(true);
-    }//GEN-LAST:event_BackButtonActionPerformed
+    } // GEN-LAST:event_BackButtonActionPerformed
 
     /**
-     * @param args the command line arguments
+     * @param args THE COMMAND LINE ARGUMENTS
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -225,7 +225,7 @@ public class Signup extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
+        /* CREATE AND DISPLAY THE FORM */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Signup().setVisible(true);
@@ -233,7 +233,8 @@ public class Signup extends javax.swing.JFrame {
         });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // VARIABLES DECLARATION - do not modify//GEN-BEGIN:variables
+
     private javax.swing.JButton BackButton;
     private javax.swing.JLabel EmailLabel;
     private javax.swing.JTextField EmailTextField;
@@ -245,5 +246,6 @@ public class Signup extends javax.swing.JFrame {
     private javax.swing.JPanel SignupLabel;
     private javax.swing.JTextField UserNameTextField;
     private javax.swing.JLabel UsernameLabel;
-    // End of variables declaration//GEN-END:variables
+
+    // END OF VARIABLES DECLARATION // GEN-END:variables
 }
