@@ -21,7 +21,7 @@ public class DatabaseConnectionManager {
             ex.printStackTrace();
         }
     }
-    private static final String URL = properties.getProperty("db.url")
+    private static final String URL = properties.getProperty("db.url");
     private static final String USER = properties.getProperty("db.user");
     private static final String PASSWORD = properties.getProperty("db.password");
 

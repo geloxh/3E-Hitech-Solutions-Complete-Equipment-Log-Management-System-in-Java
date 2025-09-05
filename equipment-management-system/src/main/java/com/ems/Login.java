@@ -223,8 +223,8 @@ public class Login extends javax.swing.JFrame {
 
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) { // GEN-FIRST:event_LoginButtonActionPerformed
         String sql = "SELECT * FROM users Where email=?";
-        try {
-            preparedStatement = connection.prepareStatement(sql);
+        try (Connection conn = DatabaseConnectionManager.getConnection();
+             PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
             preparedStatement.setString(1, UserNameTextField.getText());
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -307,4 +307,5 @@ public class Login extends javax.swing.JFrame {
     private java.awt.Label label1;
     private java.awt.Label label3;
     // End of variables declaration//GEN-END:variables
-} 
+}
+private static final String URL = properties.getProperty("db.url"); // Semicolon was missing
